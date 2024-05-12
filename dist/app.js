@@ -8,8 +8,21 @@ var ProjectInput = /** @class */ (function () {
         // If false it will import just the element itself
         var importedNode = document.importNode(this.templateElement.content, true);
         this.element = importedNode.firstElementChild;
+        this.element.id = "user-input";
+        this.titleInputElement = this.element.querySelector("#title");
+        this.descriptionInputElement = this.element.querySelector("#description");
+        this.peopleInputElement = this.element.querySelector("#people");
+        this.configure();
         this.attach();
     }
+    ProjectInput.prototype.submitHandler = function (event) {
+        event.preventDefault();
+        console.log(this.titleInputElement.value);
+    };
+    ProjectInput.prototype.configure = function () {
+        // by adding .bind(this) we make sure that submitHandler will work with the class not the reached instance
+        this.element.addEventListener("submit", this.submitHandler.bind(this));
+    };
     ProjectInput.prototype.attach = function () {
         // insertAdjacentElement = to insert an HTML element
         // 1st argument === string = where to insert
